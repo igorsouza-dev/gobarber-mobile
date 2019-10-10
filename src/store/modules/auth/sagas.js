@@ -39,7 +39,6 @@ export function* signUp({ payload }) {
       name,
       email,
       password,
-      provider: true,
     });
     Alert.alert('', 'Sign Up was a success!');
     // history.push('/');

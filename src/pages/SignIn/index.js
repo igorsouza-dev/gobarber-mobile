@@ -1,5 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Image } from 'react-native';
+import { signInRequest } from '~/store/modules/auth/actions';
 import Background from '~/components/Background';
 
 import {
@@ -14,8 +16,14 @@ import {
 import logo from '~/assets/logo.png';
 
 export default function SignIn({ navigation }) {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const dispatch = useDispatch();
   const passwordRef = useRef();
-  function handleSubmit() {}
+  function handleSubmit() {
+    dispatch(signInRequest(email, password));
+  }
   return (
     <Background>
       <Container>
@@ -27,6 +35,8 @@ export default function SignIn({ navigation }) {
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Insert your e-mail"
+            value={email}
+            onChangeText={setEmail}
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
           />
@@ -38,6 +48,8 @@ export default function SignIn({ navigation }) {
             ref={passwordRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
           />
           <SubmitButton onPress={handleSubmit}>SIGN IN</SubmitButton>
         </Form>
