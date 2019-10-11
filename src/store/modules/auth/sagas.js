@@ -25,10 +25,15 @@ export function* signIn({ payload }) {
     yield put(signInSuccess(token, user));
     // history.push('/dashboard');
   } catch (err) {
-    Alert.alert(
-      'Login error',
-      'Authentication failed! Check your information.'
-    );
+    let message = 'Sign in failed!';
+    if (err.response) {
+      if (err.response.data) {
+        if (err.response.data.error) {
+          message = err.response.data.error;
+        }
+      }
+    }
+    Alert.alert('Login error', `${message}`);
     yield put(signFailure());
   }
 }
@@ -43,7 +48,15 @@ export function* signUp({ payload }) {
     Alert.alert('', 'Sign Up was a success!');
     // history.push('/');
   } catch (err) {
-    Alert.alert('Login error', 'Sign Up failed!');
+    let message = 'Sign up failed!';
+    if (err.response) {
+      if (err.response.data) {
+        if (err.response.data.error) {
+          message = err.response.data.error;
+        }
+      }
+    }
+    Alert.alert('Sign up error', `${message}`);
     yield put(signFailure());
   }
 }
