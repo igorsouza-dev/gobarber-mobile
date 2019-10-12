@@ -23,8 +23,8 @@ export default function SelectDateTime({ navigation }) {
     loadAvailable();
   }, [date, provider.id]);
 
-  function handleSelectHour(hour) {
-    navigation.navigate('Confirm', { hour, provider });
+  function handleSelectDateTime(datetime) {
+    navigation.navigate('Confirm', { datetime, provider });
   }
 
   return (
@@ -37,7 +37,7 @@ export default function SelectDateTime({ navigation }) {
           renderItem={({ item }) => (
             <Hour
               enabled={item.available}
-              onPress={() => handleSelectHour(item.value)}
+              onPress={() => handleSelectDateTime(item.value)}
             >
               <Title>{item.time}</Title>
             </Hour>
