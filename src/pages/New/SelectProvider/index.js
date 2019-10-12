@@ -10,7 +10,6 @@ export default function SelectProvider({ navigation }) {
   useEffect(() => {
     async function loadProviders() {
       const response = await api.get('providers');
-      console.tron.log(response);
       setProviders(response.data);
     }
     loadProviders();
@@ -24,7 +23,9 @@ export default function SelectProvider({ navigation }) {
           keyExtractor={provider => String(provider.id)}
           renderItem={({ item }) => (
             <Provider
-              onPress={() => navigation.navigate('SelectDateTime', { item })}
+              onPress={() =>
+                navigation.navigate('SelectDateTime', { provider: item })
+              }
             >
               <Avatar
                 source={{
