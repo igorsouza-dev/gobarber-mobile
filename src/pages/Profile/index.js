@@ -9,9 +9,11 @@ import {
   FormInput,
   Separator,
   SubmitButton,
+  LogoutButton,
 } from './styles';
 
 import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth/actions';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -46,6 +48,10 @@ export default function Profile() {
         confirmPassword,
       })
     );
+  }
+
+  function handleLogout() {
+    dispatch(signOut());
   }
 
   return (
@@ -109,10 +115,12 @@ export default function Profile() {
             returnKeyType="send"
             value={confirmPassword}
             onChangeText={setConfirmPassword}
+            onSubmitEditing={handleSubmit}
           />
           <SubmitButton onPress={handleSubmit} loading={loading}>
             UPDATE PROFILE
           </SubmitButton>
+          <LogoutButton onPress={handleLogout}>LOGOUT</LogoutButton>
         </Form>
       </Container>
     </Background>
